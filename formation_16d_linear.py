@@ -1,34 +1,3 @@
-"""
-Experiment: Constricting tubes — 12D stacked system
-=====================================================
-6 agents, each with 2D linear dynamics:
-    x_dot_i = A x_i + B u_i
-
-Full stacked system (12D state, 6D input):
-    X_dot = A_big X + B_big U
-    A_big = blkdiag(A, ..., A)  in R^{12x12}
-    B_big = blkdiag(B, ..., B)  in R^{12x6}
-
-Single joint barrier for the full system:
-    h(X) = c - X^T X = c - sum_i ||x_i||^2
-    C = { X : h(X) >= 0 }
-
-Constricting barrier:
-    h_tilde(X, t) = h(X) + r(t),   r(t) = r0 * (1 - t/T) for t <= T
-
-Single CBF-QP over the full 6D input (solved via CVXPY/OSQP):
-    min_{U}  ||U - U_nom||^2
-    s.t.     L_f h + L_g h @ U + r_dot >= -alpha * h_tilde
-             ||U||_inf <= u_max
-
-T_min via Corollary 3 (P = I_{12}, block structure):
-    sigma_min = 2c * (||B|| * u_max - lambda_max(A))
-    r0 = max(0, -h(X0))   [single scalar for the joint system]
-    T_min = r0 / sigma_min
-
-All methods operate on the full 12D state with the joint barrier
-h(X) = c - ||X||^2, ensuring a fair comparison.
-"""
 
 import numpy as np
 import scipy.linalg
