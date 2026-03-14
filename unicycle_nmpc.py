@@ -1,24 +1,3 @@
-"""
-Experiment 3: Unicycle with fixed-time reach and obstacle avoidance via NMPC.
-
-Dynamics (unicycle):
-  p_dot_x = v*cos(theta)
-  p_dot_y = v*sin(theta)
-  theta_dot = omega
-
-Safety constraints:
-  h1(x,t) = eps^2 - px^2 - py^2 + r1(t) >= 0   [constricting reach tube]
-  h2(x)   = (px-cx)^2 + (py-cy)^2 - rho^2 >= 0  [static obstacle avoidance]
-
-NMPC: receding horizon, N steps, dt=0.1s
-  min  sum ||u_k||^2 + alpha*||p_N||^2
-  s.t. unicycle dynamics (Euler)
-       h1(x_k, t+k*dt) >= 0   for k=0..N
-       h2(x_k)         >= 0   for k=0..N
-       |v| <= v_max, |omega| <= omega_max
-
-Schedule: r1(t) = (r0+delta)*(1-t/T)^2 - delta
-"""
 
 import numpy as np
 import casadi as ca
