@@ -3,6 +3,7 @@
 Simulation code accompanying the paper:
 
 > **Constricting Tubes for Fixed-Time Control Synthesis**
+> 
 > Darshan Gadginmath, Ahmed Allibhoy, Fabio Pasqualetti
 
 ---
@@ -13,9 +14,9 @@ This repository contains numerical experiments demonstrating the **constricting 
 
 The core idea: given a safe set $\mathcal{C} = \{x : h(x) \geq 0\}$ and a system starting outside it, we synthesize a time-varying barrier
 
-$$\tilde{h}(x,t) = h(x) + r(t), \quad r(t) \to 0 \text{ as } t \to T$$
+$$\tilde{h}(x,t) = h(x) + r(x(0),t), \quad r(x(0),t) \to 0 \text{ as } t \to T$$
 
-This reduces fixed-time entry into $\mathcal{C}$ to a standard forward invariance problem, avoiding the diverging control gains of prescribed-time methods.
+This reduces prescribed-time entry into $\mathcal{C}$ to a standard forward invariance problem, avoiding the diverging control gains of prescribed-time methods. This is also highly scalable: despite coordinating N agents, control is synthesized via a single QP with one CBF constraint over the m-dimensional input.
 
 ---
 
